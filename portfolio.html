@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Hardware Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg:        #0A0A0A;
+  --bg-raised: #111111;
+  --line:      #1E1E1E;
+  --line-soft: #161616;
+  --text:      #F0F0F0;
+  --text-2:    #8C8C8C;
+  --text-3:    #484848;
+  --text-4:    #2A2A2A;
+  --gold:      #C8A96E;
+  --gold-soft: rgba(200,169,110,0.07);
+  --gold-bd:   rgba(200,169,110,0.15);
+  --f:         'Inter', system-ui, sans-serif;
+  --out:       cubic-bezier(0.16, 1, 0.3, 1);
+  --std:       cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── BASE ───────────────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ─── LAYOUT ─────────────────────────────────────────── */
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 48px; }
+
+/* ─── NAV ────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: background 0.5s var(--std), border-color 0.5s;
+}
+nav.scrolled {
+  background: rgba(10,10,10,0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-color: var(--line);
+}
+.nav-inner {
+  max-width: 1040px; margin: 0 auto; padding: 0 48px;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-size: 14px; font-weight: 400; color: var(--text);
+  opacity: 0; transition: opacity 0.4s;
+}
+nav.scrolled .nav-logo { opacity: 1; }
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 400; color: var(--text-2);
+  letter-spacing: 0.02em; transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute;
+  bottom: -3px; left: 0; right: 0; height: 1px;
+  background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s var(--out);
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+   - min-height 110vh so animation has room below the fold
+   - text sits at bottom third, not cramped at very bottom
+═══════════════════════════════════════════════════════ */
+#hero {
+  position: relative;
+  min-height: 110vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+#circuit-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+/* Vignette: edges + bottom darken, animation visible in upper 60% */
+.hero-vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 70% at 55% 40%, transparent 30%, rgba(10,10,10,0.65) 100%),
+    linear-gradient(to top,
+      rgba(10,10,10,1.00)  0%,
+      rgba(10,10,10,0.85) 18%,
+      rgba(10,10,10,0.20) 45%,
+      transparent         65%
+    );
+}
+
+.hero-body {
+  position: relative; z-index: 2;
+  padding: 0 48px 100px;
+  max-width: 1040px; margin: 0 auto; width: 100%;
+}
+
+/* Availability tag */
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 44px;
+  font-size: 11px; font-weight: 400;
+  color: var(--text-3); letter-spacing: 0.13em; text-transform: uppercase;
+  opacity: 0; animation: af 0.5s var(--out) 0.15s forwards;
+}
+.tag-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #4a9a5a;
+  box-shadow: 0 0 8px rgba(74,154,90,0.5);
+}
+
+/* ── HEADLINE ──
+   font-weight: 300 throughout — size does the work, not weight
+   No 200, no 600. Clean. */
+.hero-hl { margin-bottom: 40px; }
+.hl-mask {
+  display: block; overflow: hidden;
+  padding-bottom: 6px; margin-bottom: -6px;
+}
+.hl-text {
+  display: block;
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  transform: translateY(110%); opacity: 0;
+  animation: cu 0.95s var(--out) forwards;
+}
+.hl-text em {
+  font-style: italic; font-weight: 300;
+  color: var(--gold);
+}
+.hl-mask:nth-child(1) .hl-text { animation-delay: 0.28s; }
+.hl-mask:nth-child(2) .hl-text { animation-delay: 0.43s; }
+.hl-mask:nth-child(3) .hl-text { animation-delay: 0.58s; }
+
+@keyframes cu { to { transform: translateY(0); opacity: 1; } }
+@keyframes af { to { opacity: 1; } }
+@keyframes au { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:none } }
+
+/* Bottom row: sub text left, meta right */
+.hero-lower {
+  display: flex; align-items: flex-end;
+  justify-content: space-between; gap: 48px;
+  opacity: 0; animation: au 0.7s var(--out) 0.95s forwards;
+}
+.hero-sub {
+  font-size: 16px; font-weight: 300;
+  color: var(--text-2); line-height: 1.72;
+  max-width: 400px; letter-spacing: 0.005em;
+}
+.hero-meta {
+  display: flex; flex-direction: column;
+  align-items: flex-end; gap: 9px; flex-shrink: 0;
+}
+.meta-row { display: flex; align-items: baseline; gap: 14px; }
+.meta-key {
+  font-size: 10px; font-weight: 500; color: var(--text-4);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.meta-val { font-size: 13px; color: var(--text-2); }
+.meta-val.open { color: #5aad6a; }
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute; bottom: 48px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-size: 10px; color: var(--text-4);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  opacity: 0; animation: af 0.6s var(--out) 1.7s forwards;
+  pointer-events: none; z-index: 2;
+}
+.scroll-line {
+  width: 1px; height: 36px;
+  background: linear-gradient(to bottom, var(--text-3), transparent);
+  animation: sdrop 2.2s var(--out) 2s infinite;
+  transform-origin: top; transform: scaleY(0);
+}
+@keyframes sdrop {
+  0%   { transform: scaleY(0); opacity: 0; }
+  25%  { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTIONS  — generous spacing, clear rhythm
+═══════════════════════════════════════════════════════ */
+.section { padding: 120px 0; border-bottom: 1px solid var(--line); }
+
+.section-label {
+  font-size: 11px; font-weight: 500;
+  color: var(--gold); letter-spacing: 0.16em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 72px;
+}
+.section-label::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold); opacity: 0.5;
+}
+
+/* ─── ABOUT ──────────────────────────────────────────── */
+.about-grid {
+  display: grid; grid-template-columns: 1.25fr 0.75fr;
+  gap: 88px; align-items: start;
+}
+
+/* Big opening line — sets the tone before paragraphs */
+.about-lede {
+  font-size: 22px; font-weight: 300;
+  color: var(--text); line-height: 1.5;
+  letter-spacing: -0.015em;
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-text p {
+  font-size: 16px; color: var(--text-2);
+  line-height: 1.88; margin-bottom: 22px;
+}
+.about-text p:last-child { margin-bottom: 0; }
+.about-text strong { color: var(--text); font-weight: 500; }
+
+/* Aside */
+.aside-group { margin-bottom: 40px; }
+.aside-group:last-child { margin-bottom: 0; }
+.aside-group-label {
+  font-size: 10px; font-weight: 500; color: var(--gold);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  margin-bottom: 14px;
+}
+.aside-list { list-style: none; }
+.aside-list li {
+  font-size: 14px; color: var(--text-2);
+  padding: 8px 0; border-bottom: 1px solid var(--line-soft); line-height: 1.4;
+}
+.aside-list li:last-child { border-bottom: none; }
+.aside-links { list-style: none; }
+.aside-links li a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 0; border-bottom: 1px solid var(--line);
+  font-size: 14px; color: var(--text-2); transition: color 0.2s;
+}
+.aside-links li:first-child a { border-top: 1px solid var(--line); }
+.aside-links li a:hover { color: var(--text); }
+.aside-links li a:hover .arr { color: var(--gold); transform: translateX(4px); }
+.arr { font-size: 12px; color: var(--text-3); transition: color 0.2s, transform 0.2s; }
+
+/* ─── PROJECTS ───────────────────────────────────────── */
+.project-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 56px; padding: 52px 0;
+  border-top: 1px solid var(--line);
+  transition: background 0.3s var(--std),
+              margin     0.3s var(--std),
+              padding    0.3s var(--std);
+}
+.project-row:last-child { border-bottom: 1px solid var(--line); }
+.project-row:hover {
+  background: var(--bg-raised);
+  margin: 0 -20px; padding-left: 20px; padding-right: 20px;
+}
+
+.proj-context {
+  font-size: 10px; font-weight: 500; color: var(--text-3);
+  letter-spacing: 0.11em; text-transform: uppercase;
+  margin-bottom: 10px; padding-top: 4px;
+}
+.proj-name {
+  font-size: 22px; font-weight: 400;
+  color: var(--text); letter-spacing: -0.02em;
+  line-height: 1.15; margin-bottom: 8px;
+}
+.proj-type { font-size: 12px; color: var(--gold); letter-spacing: 0.03em; }
+
+/* Inline summary — first sentence larger, rest normal */
+.proj-summary {
+  font-size: 17px; font-weight: 300;
+  color: var(--text); line-height: 1.6;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.proj-body {
+  font-size: 14px; color: var(--text-2);
+  line-height: 1.84; margin-bottom: 20px;
+}
+.proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.proj-tag {
+  font-size: 11px; color: var(--text-3);
+  border: 1px solid var(--line); padding: 4px 12px;
+  border-radius: 2px; letter-spacing: 0.02em;
+}
+.proj-tag.hl {
+  color: var(--gold); border-color: var(--gold-bd);
+  background: var(--gold-soft); font-weight: 500;
+}
+.proj-note { font-size: 12px; color: var(--text-4); font-style: italic; }
+
+/* ─── SKILLS ─────────────────────────────────────────── */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border: 1px solid var(--line); border-radius: 2px; overflow: hidden;
+}
+.skill-col {
+  padding: 40px 32px; border-right: 1px solid var(--line);
+  transition: background 0.2s;
+}
+.skill-col:last-child { border-right: none; }
+.skill-col:hover { background: var(--bg-raised); }
+.skill-col-name {
+  font-size: 11px; font-weight: 500; color: var(--gold);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding-bottom: 18px; border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.skill-items { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.skill-item strong {
+  display: block; font-size: 14px; font-weight: 500;
+  color: var(--text); margin-bottom: 4px;
+}
+.skill-item span { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+/* ─── EDUCATION ──────────────────────────────────────── */
+.edu-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 56px; padding: 48px 0; border-top: 1px solid var(--line);
+}
+.edu-row:last-child { border-bottom: 1px solid var(--line); }
+.edu-period { font-size: 13px; color: var(--text-3); padding-top: 3px; }
+.edu-degree {
+  font-size: 19px; font-weight: 400; color: var(--text);
+  letter-spacing: -0.015em; margin-bottom: 5px;
+}
+.edu-institution { font-size: 13px; color: var(--text-3); margin-bottom: 14px; }
+.edu-detail { font-size: 14px; color: var(--text-2); line-height: 1.78; }
+
+/* ─── CONTACT ────────────────────────────────────────── */
+#contact { border-bottom: none; padding-bottom: 120px; }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 88px; align-items: start;
+}
+.contact-heading {
+  font-size: clamp(36px, 4.5vw, 54px);
+  font-weight: 300; letter-spacing: -0.03em;
+  line-height: 1.1; margin-bottom: 20px;
+}
+.contact-heading em { font-style: italic; color: var(--gold); }
+.contact-body { font-size: 15px; color: var(--text-2); line-height: 1.82; }
+.contact-list { list-style: none; }
+.contact-list li a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 17px 0; border-bottom: 1px solid var(--line);
+  transition: padding-left 0.25s var(--out);
+}
+.contact-list li:first-child a { border-top: 1px solid var(--line); }
+.contact-list li a:hover { padding-left: 6px; }
+.contact-list li a:hover .arr { color: var(--gold); transform: translateX(4px); }
+.c-label {
+  font-size: 10px; font-weight: 500; color: var(--text-3);
+  letter-spacing: 0.11em; text-transform: uppercase;
+}
+.c-value { font-size: 14px; color: var(--text-2); }
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer { padding: 32px 0; border-top: 1px solid var(--line); }
+.footer-inner {
+  max-width: 1040px; margin: 0 auto; padding: 0 48px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-text { font-size: 12px; color: var(--text-4); }
+
+/* ─── SCROLL REVEAL ──────────────────────────────────── */
+.sr {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.65s var(--out), transform 0.65s var(--out);
+}
+.sr.in { opacity: 1; transform: none; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 860px) {
+  .wrap { padding: 0 24px; }
+  .nav-inner, .hero-body, .footer-inner { padding-left: 24px; padding-right: 24px; }
+  .nav-links { display: none; }
+  .hero-lower { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .hero-meta { align-items: flex-start; }
+  .section { padding: 80px 0; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+  .project-row, .edu-row { grid-template-columns: 1fr; gap: 14px; }
+  .project-row:hover { margin: 0; padding-left: 0; padding-right: 0; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .skill-col { border-right: none; border-bottom: 1px solid var(--line); }
+  .skill-col:last-child { border-bottom: none; }
+  .footer-inner { flex-direction: column; gap: 6px; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hl-text, .hero-tag, .hero-lower, .scroll-hint
+  { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .sr { opacity: 1 !important; transform: none !important; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <div class="nav-inner">
+    <span class="nav-logo">Your Name</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <canvas id="circuit-canvas"></canvas>
+  <div class="hero-vignette"></div>
+
+  <div class="hero-body">
+    <div class="hero-tag">
+      <div class="tag-dot"></div>
+      Open to opportunities — 2026
+    </div>
+
+    <div class="hero-hl">
+      <span class="hl-mask"><span class="hl-text">Hardware</span></span>
+      <span class="hl-mask"><span class="hl-text">engineer &amp;</span></span>
+      <span class="hl-mask"><span class="hl-text"><em>builder.</em></span></span>
+    </div>
+
+    <div class="hero-lower">
+      <p class="hero-sub">
+        BSc in Electrical &amp; Electronic Engineering.<br>
+        PCBs, firmware, and the tools that talk to hardware.
+      </p>
+      <div class="hero-meta">
+        <div class="meta-row">
+          <span class="meta-key">Focus</span>
+          <span class="meta-val">Embedded Systems · PCB</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Location</span>
+          <span class="meta-val">Sri Lanka</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Status</span>
+          <span class="meta-val open">Available</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about" class="section">
+  <div class="wrap">
+    <div class="section-label">About</div>
+    <div class="about-grid">
+      <div class="about-text sr">
+        <p class="about-lede">
+          I work where physical hardware meets the software running on it —
+          designing the board and then writing code that talks directly to the chips on it.
+        </p>
+        <p>
+          My degree in Electrical &amp; Electronic Engineering built strong foundations
+          across circuit theory, power electronics, and digital systems. What I care
+          about most is the intersection: taking a component datasheet, designing it
+          onto a PCB, and then making it do something useful in firmware.
+        </p>
+        <p>
+          My final year project, <strong>JumperZ Studio</strong>, is the clearest
+          example of that. A professional desktop EDA application built from scratch —
+          custom hardware with an RP2040, a 400-node analog switching matrix, and
+          400 RGB LEDs, paired with a clean layered software architecture in Python.
+          Every design decision on the board had a consequence in the code, and I owned both.
+        </p>
+        <p>
+          Outside the FYP I have laid out complete PCBs in EasyEDA and shaped
+          the hardware architecture of a <strong>first-place Micromouse</strong>.
+          Firmware in C is where I am investing time now — the hardware side is
+          solid; making the chips do exactly what I intend is the next chapter.
+        </p>
+      </div>
+      <div class="about-aside sr">
+        <div class="aside-group">
+          <div class="aside-group-label">Specialisation</div>
+          <ul class="aside-list">
+            <li>Embedded Systems</li>
+            <li>PCB Design &amp; Layout</li>
+            <li>Hardware–Software Integration</li>
+            <li>Desktop Tool Development</li>
+          </ul>
+        </div>
+        <div class="aside-group">
+          <div class="aside-group-label">Tools &amp; Platforms</div>
+          <ul class="aside-list">
+            <li>EasyEDA · KiCad</li>
+            <li>RP2040 · ESP8266 · Arduino</li>
+            <li>Python · PySide6 / Qt</li>
+            <li>MicroPython · MATLAB · LTSpice</li>
+          </ul>
+        </div>
+        <div class="aside-group">
+          <div class="aside-group-label">Links</div>
+          <ul class="aside-links">
+            <li><a href="#">LinkedIn <span class="arr">→</span></a></li>
+            <li><a href="#">GitHub <span class="arr">→</span></a></li>
+            <li><a href="#">Download CV <span class="arr">→</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects" class="section">
+  <div class="wrap">
+    <div class="section-label">Projects</div>
+
+    <div class="project-row sr">
+      <div>
+        <div class="proj-context">Final Year Project</div>
+        <div class="proj-name">JumperZ Studio</div>
+        <div class="proj-type">EDA · Embedded · Desktop</div>
+      </div>
+      <div>
+        <p class="proj-summary">
+          An EDA desktop application where placing a wire on screen
+          physically routes current through real hardware in real time.
+        </p>
+        <p class="proj-body">
+          Built on a custom RP2040 board driving a CH446Q 400-node analog switching
+          matrix and 400 WS2812B LEDs, with INA219 live current sensing over USB CDC.
+          The application translates visual connections into firmware commands
+          instantly — nodes light up, measurements stream back. The desktop side
+          uses a strict layered architecture in Python with PySide6: domain,
+          services, infrastructure, and UI with hard boundaries between them.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag hl">RP2040</span>
+          <span class="proj-tag hl">Custom PCB</span>
+          <span class="proj-tag">CH446Q · WS2812B · INA219</span>
+          <span class="proj-tag">Python · PySide6</span>
+          <span class="proj-tag">USB CDC firmware</span>
+          <span class="proj-tag">Layered architecture</span>
+        </div>
+        <p class="proj-note">Source code confidential — available for review on request</p>
+      </div>
+    </div>
+
+    <div class="project-row sr">
+      <div>
+        <div class="proj-context">PCB Design</div>
+        <div class="proj-name">Line Following Robot</div>
+        <div class="proj-type">PCB · Embedded Hardware</div>
+      </div>
+      <div>
+        <p class="proj-summary">
+          A complete custom PCB — from blank schematic to routed board —
+          for an autonomous line-following robot.
+        </p>
+        <p class="proj-body">
+          Integrates RP2040, ESP8266 Wi-Fi, ICM-20652 IMU, dual motor drivers,
+          USB Type-C power input, QSPI flash, and an IR sensor array on a single
+          compact board. Three-page schematic covering power regulation,
+          reset/boot circuitry, and ESD protection — designed and laid out
+          entirely in EasyEDA.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag hl">EasyEDA</span>
+          <span class="proj-tag">RP2040 · ESP8266</span>
+          <span class="proj-tag">ICM-20652 IMU</span>
+          <span class="proj-tag">USB Type-C · QSPI</span>
+          <span class="proj-tag">3-page schematic</span>
+          <span class="proj-tag">ESD protection</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-row sr">
+      <div>
+        <div class="proj-context">Competition — 1st Place</div>
+        <div class="proj-name">Micromouse</div>
+        <div class="proj-type">Robotics · Hardware Architecture</div>
+      </div>
+      <div>
+        <p class="proj-summary">
+          Hardware architecture for a Micromouse that placed first —
+          designed around the constraints of the algorithm, not just the maze.
+        </p>
+        <p class="proj-body">
+          Responsible for full system design: component selection, sensor layout,
+          motor configuration, and hardware planning within strict size and weight
+          limits. The design had to accommodate flood-fill algorithm requirements
+          in sensor placement and motor response time — the hardware had to let
+          the software win.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag hl">1st Place</span>
+          <span class="proj-tag">System architecture</span>
+          <span class="proj-tag">Sensor design</span>
+          <span class="proj-tag">Motor systems</span>
+          <span class="proj-tag">Constraint-driven design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills" class="section">
+  <div class="wrap">
+    <div class="section-label">Skills</div>
+    <div class="skills-grid sr">
+      <div class="skill-col">
+        <div class="skill-col-name">Hardware</div>
+        <ul class="skill-items">
+          <li class="skill-item">
+            <strong>PCB Design</strong>
+            <span>EasyEDA, schematic capture, layout &amp; routing, multi-layer, DFM</span>
+          </li>
+          <li class="skill-item">
+            <strong>Circuit Analysis</strong>
+            <span>Power regulation, filtering, protection circuits, signal integrity</span>
+          </li>
+          <li class="skill-item">
+            <strong>Component Selection</strong>
+            <span>MCUs, sensors, power ICs, analog switching, motor drivers</span>
+          </li>
+          <li class="skill-item">
+            <strong>Simulation</strong>
+            <span>LTSpice, MATLAB / Simulink</span>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <div class="skill-col-name">Embedded &amp; Firmware</div>
+        <ul class="skill-items">
+          <li class="skill-item">
+            <strong>Platforms</strong>
+            <span>RP2040, ESP8266, Arduino Nano</span>
+          </li>
+          <li class="skill-item">
+            <strong>Interfaces</strong>
+            <span>USB CDC, SPI, I2C, UART, QSPI</span>
+          </li>
+          <li class="skill-item">
+            <strong>Languages</strong>
+            <span>MicroPython (active), C / Arduino (developing), JSON protocol design</span>
+          </li>
+          <li class="skill-item">
+            <strong>Peripherals</strong>
+            <span>WS2812B arrays, analog switching matrices, current sensors, IMUs</span>
+          </li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <div class="skill-col-name">Software &amp; EE Core</div>
+        <ul class="skill-items">
+          <li class="skill-item">
+            <strong>Desktop Development</strong>
+            <span>Python, PySide6 / Qt, layered architecture, event-driven design</span>
+          </li>
+          <li class="skill-item">
+            <strong>EE Fundamentals</strong>
+            <span>Power electronics, digital systems, control theory, signal processing</span>
+          </li>
+          <li class="skill-item">
+            <strong>Measurement</strong>
+            <span>Voltage / current sensing, oscilloscope use, instrument interfacing</span>
+          </li>
+          <li class="skill-item">
+            <strong>Documentation</strong>
+            <span>System architecture docs, technical writing, GitHub</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION ─── -->
+<section id="education" class="section">
+  <div class="wrap">
+    <div class="section-label">Education</div>
+    <div class="sr">
+      <div class="edu-row">
+        <div class="edu-period">2020 – 2024</div>
+        <div>
+          <div class="edu-degree">BSc in Electrical &amp; Electronic Engineering</div>
+          <div class="edu-institution">Your University · Sri Lanka</div>
+          <div class="edu-detail">
+            Final Year Project: JumperZ Studio — commercial-grade EDA desktop application
+            with custom hardware. Coursework: embedded systems, digital electronics,
+            power systems, control theory, signal processing.
+          </div>
+        </div>
+      </div>
+      <div class="edu-row">
+        <div class="edu-period">Certifications</div>
+        <div>
+          <div class="edu-degree">Add certifications here</div>
+          <div class="edu-institution">e.g. MATLAB Onramp · Embedded Systems — Coursera</div>
+          <div class="edu-detail">
+            List short courses or workshops relevant to embedded systems or PCB design.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact" class="section">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="sr">
+        <h2 class="contact-heading">Let's build<br>something <em>real.</em></h2>
+        <p class="contact-body">
+          Looking for roles in embedded systems, PCB design, or
+          hardware–software integration. Open to full-time positions
+          and internships.
+        </p>
+      </div>
+      <ul class="contact-list sr">
+        <li><a href="mailto:your@email.com">
+          <span class="c-label">Email</span>
+          <span class="c-value">your@email.com</span>
+          <span class="arr">→</span>
+        </a></li>
+        <li><a href="#">
+          <span class="c-label">LinkedIn</span>
+          <span class="c-value">linkedin.com/in/yourname</span>
+          <span class="arr">→</span>
+        </a></li>
+        <li><a href="#">
+          <span class="c-label">GitHub</span>
+          <span class="c-value">github.com/yourname</span>
+          <span class="arr">→</span>
+        </a></li>
+        <li><a href="#">
+          <span class="c-label">CV</span>
+          <span class="c-value">Download PDF</span>
+          <span class="arr">→</span>
+        </a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">© 2026 Your Name</span>
+    <span class="footer-text">BSc EEE — Open to work</span>
+  </div>
+</footer>
+
+<script>
+// ── NAV ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+
+
+// ── CIRCUIT ANIMATION ──────────────────────────────────
+(function () {
+  const canvas = document.getElementById('circuit-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, nodes, edges, packets, raf, frame = 0;
+
+  // Colours — single gold palette, three stops
+  const DIM    = [180, 148,  90];
+  const MID    = [200, 169, 110];
+  const BRIGHT = [228, 200, 148];
+  const WHITE  = [245, 235, 215];
+  const c = ([r,g,b], a) => `rgba(${r},${g},${b},${+a.toFixed(3)})`;
+
+  // ── Build ──────────────────────────────────────────────
+  function build() {
+    nodes = []; edges = []; packets = [];
+
+    // Fixed node count regardless of canvas size — keeps it readable at any zoom.
+    // Nodes placed in a loose organic grid with human jitter.
+    const COUNT = 38;
+    const cols  = 7;
+    const rows  = Math.ceil(COUNT / cols);
+
+    for (let i = 0; i < COUNT; i++) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      // Normalised position with tasteful jitter
+      const nx = (col + 0.5) / cols + (Math.random() - 0.5) * 0.10;
+      const ny = (row + 0.5) / rows + (Math.random() - 0.5) * 0.12;
+      // ~15% are junction nodes (larger, more connections)
+      const major = Math.random() < 0.15;
+      nodes.push({
+        nx, ny,                          // normalised 0-1
+        major,
+        r:    major ? 3.5 : 2.0,        // base radius px
+        ph:   Math.random() * Math.PI * 2,
+        phS:  major ? 0.013 : 0.008,
+        bT:   0,                         // burst timer
+        eIdx: [],
+      });
+    }
+
+    // Connect nearby nodes — sparse, max 3 per node
+    const used = new Set();
+    nodes.forEach((n, i) => {
+      const max = n.major ? 4 : 3;
+      let cnt   = 0;
+      // Sort all others by distance, pick closest
+      [...nodes]
+        .map((m, j) => ({
+          j,
+          d: Math.hypot((m.nx - n.nx) * W, (m.ny - n.ny) * H),
+        }))
+        .filter(({ j, d }) => j !== i && d > 30 && d < 260)
+        .sort((a, b) => a.d - b.d)
+        .forEach(({ j }) => {
+          if (cnt >= max) return;
+          const k = i < j ? `${i}-${j}` : `${j}-${i}`;
+          if (!used.has(k)) {
+            used.add(k);
+            const ei = edges.length;
+            edges.push({ a: i, b: j, lit: 0 });
+            nodes[i].eIdx.push(ei);
+            nodes[j].eIdx.push(ei);
+            cnt++;
+          }
+        });
+    });
+
+    // Seed packets on ~30% of edges
+    edges.forEach((e, i) => {
+      if (Math.random() < 0.3) spawn(i, Math.random());
+    });
+  }
+
+  // px coords from normalised
+  const px = n => ({ x: n.nx * W, y: n.ny * H });
+
+  // ── Spawn packet on edge ei at position t0, direction dir (1 or -1)
+  function spawn(ei, t0 = 0, dir = 1) {
+    packets.push({
+      ei, t: t0, dir,
+      spd:   0.0007 + Math.random() * 0.0008,
+      trail: [],
+      alive: true,
+    });
+  }
+
+  // ── Burst: major node fires packets on all its edges
+  function burst(ni) {
+    const n = nodes[ni];
+    if (n.bT > 0) return;
+    n.bT = 1.0;
+    n.eIdx.forEach(ei => {
+      edges[ei].lit = 1.0;
+      // Direction away from this node
+      const dir = edges[ei].a === ni ? 1 : -1;
+      spawn(ei, dir === 1 ? 0 : 1, dir);
+    });
+  }
+
+  // ── Render ──────────────────────────────────────────────
+  function loop() {
+    raf = requestAnimationFrame(loop);
+    frame++;
+    ctx.clearRect(0, 0, W, H);
+
+    // ── Edges
+    edges.forEach(e => {
+      if (e.lit > 0) e.lit = Math.max(0, e.lit - 0.016);
+      const na = nodes[e.a], nb = nodes[e.b];
+      const pa = px(na), pb = px(nb);
+      const baseA = (na.major || nb.major) ? 0.13 : 0.07;
+      const alpha = baseA + e.lit * 0.22;
+      const lw    = (na.major || nb.major) ? 0.9 : 0.6;
+      ctx.strokeStyle = c(e.lit > 0.3 ? BRIGHT : MID, alpha);
+      ctx.lineWidth   = lw;
+      ctx.beginPath();
+      ctx.moveTo(pa.x, pa.y);
+      ctx.lineTo(pb.x, pb.y);
+      ctx.stroke();
+    });
+
+    // ── Nodes
+    nodes.forEach((n, ni) => {
+      n.ph += n.phS;
+      if (n.bT > 0) n.bT = Math.max(0, n.bT - 0.020);
+
+      const p     = px(n);
+      const pulse = 1 + Math.sin(n.ph) * 0.22;
+      const extra = n.bT * 5;
+      const r     = n.r * pulse + extra;
+
+      if (n.major) {
+        // Atmospheric bloom — soft, wide
+        const bloomR = r + 16 + n.bT * 12;
+        const bg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, bloomR);
+        bg.addColorStop(0,   c(MID,  0.12 + n.bT * 0.18));
+        bg.addColorStop(0.4, c(DIM,  0.04));
+        bg.addColorStop(1,   c(DIM,  0));
+        ctx.beginPath(); ctx.arc(p.x, p.y, bloomR, 0, Math.PI * 2);
+        ctx.fillStyle = bg; ctx.fill();
+
+        // Tight inner glow ring
+        const ig = ctx.createRadialGradient(p.x, p.y, r * 0.6, p.x, p.y, r + 5);
+        ig.addColorStop(0, c(BRIGHT, 0.20 + n.bT * 0.25));
+        ig.addColorStop(1, c(MID,    0));
+        ctx.beginPath(); ctx.arc(p.x, p.y, r + 5, 0, Math.PI * 2);
+        ctx.fillStyle = ig; ctx.fill();
+
+        // Core
+        ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = c(n.bT > 0.1 ? BRIGHT : MID, 0.55 + n.bT * 0.30);
+        ctx.fill();
+
+        // White pinpoint
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
+        ctx.fillStyle = c(WHITE, 0.85 + n.bT * 0.15);
+        ctx.fill();
+
+      } else {
+        // Small node — just a dot with subtle halo
+        const sg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r + 4);
+        sg.addColorStop(0, c(MID, 0.18 + n.bT * 0.20));
+        sg.addColorStop(1, c(MID, 0));
+        ctx.beginPath(); ctx.arc(p.x, p.y, r + 4, 0, Math.PI * 2);
+        ctx.fillStyle = sg; ctx.fill();
+
+        ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = c(MID, 0.28 + n.bT * 0.30);
+        ctx.fill();
+      }
+    });
+
+    // ── Packets
+    packets = packets.filter(p => p.alive);
+
+    packets.forEach(p => {
+      p.t += p.spd * p.dir;
+
+      // Clean despawn — no bounce
+      if (p.t >= 1 || p.t <= 0) {
+        p.alive = false;
+        const e    = edges[p.ei];
+        const dest = nodes[p.t >= 1 ? e.b : e.a];
+        dest.bT    = Math.max(dest.bT, 0.28);
+        e.lit      = Math.max(e.lit, 0.50);
+        return;
+      }
+
+      const e  = edges[p.ei];
+      const na = nodes[e.a], nb = nodes[e.b];
+      const pa = px(na), pb = px(nb);
+      const x  = pa.x + (pb.x - pa.x) * p.t;
+      const y  = pa.y + (pb.y - pa.y) * p.t;
+
+      // Trail
+      p.trail.push({ x, y });
+      if (p.trail.length > 16) p.trail.shift();
+
+      if (p.trail.length > 2) {
+        for (let i = 1; i < p.trail.length; i++) {
+          const age = i / p.trail.length;
+          ctx.strokeStyle = c(age > 0.6 ? BRIGHT : MID, age * age * 0.40);
+          ctx.lineWidth   = age * 2.0;
+          ctx.lineCap     = 'round';
+          ctx.beginPath();
+          ctx.moveTo(p.trail[i-1].x, p.trail[i-1].y);
+          ctx.lineTo(p.trail[i].x,   p.trail[i].y);
+          ctx.stroke();
+        }
+      }
+
+      // Halo
+      const hg = ctx.createRadialGradient(x, y, 0, x, y, 10);
+      hg.addColorStop(0,   c(BRIGHT, 0.32));
+      hg.addColorStop(0.4, c(MID,    0.10));
+      hg.addColorStop(1,   c(MID,    0));
+      ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI * 2);
+      ctx.fillStyle = hg; ctx.fill();
+
+      // Core
+      ctx.beginPath(); ctx.arc(x, y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = c(WHITE, 0.95);
+      ctx.fill();
+
+      e.lit = Math.max(e.lit, 0.06);
+    });
+
+    // ── Spawn new packets steadily
+    if (frame % 65 === 0 && packets.length < 22) {
+      const ei = Math.floor(Math.random() * edges.length);
+      spawn(ei, 0, 1);
+    }
+
+    // ── Periodic burst on a random major node
+    if (frame % 280 === 0) {
+      const majors = nodes.map((n, i) => n.major ? i : -1).filter(i => i >= 0);
+      if (majors.length) burst(majors[Math.floor(Math.random() * majors.length)]);
+    }
+  }
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    cancelAnimationFrame(raf);
+    build();
+    raf = requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+})();
+
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 80);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.sr').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
