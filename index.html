@@ -3,16 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Name — Hardware Engineer</title>
+<title>Gamunu Agalawatte — Hardware Engineer</title>
 <meta name="description" content="Hardware engineer focused on embedded systems and PCB design. BSc EEE graduate, Sri Lanka.">
-<meta property="og:title" content="Your Name — Hardware Engineer">
+<meta property="og:title" content="Gamunu Agalawatte — Hardware Engineer">
 <meta property="og:description" content="Embedded systems, PCB design, and hardware-software integration.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gamunuagalawatte.github.io/portfolio/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Your Name — Hardware Engineer">
-<meta name="twitter:description" content="Embedded systems, PCB design, and hardware-software integration.">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27><rect width=%2732%27 height=%2732%27 rx=%274%27 fill=%27%230A0A0A%27/><circle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27none%27 stroke=%27%23C8A96E%27 stroke-width=%272%27/><line x1=%2716%27 y1=%274%27 x2=%2716%27 y2=%2711%27 stroke=%27%23C8A96E%27 stroke-width=%271.5%27/><line x1=%2716%27 y1=%2721%27 x2=%2716%27 y2=%2728%27 stroke=%27%23C8A96E%27 stroke-width=%271.5%27/><line x1=%274%27 y1=%2716%27 x2=%2711%27 y2=%2716%27 stroke=%27%23C8A96E%27 stroke-width=%271.5%27/><line x1=%2721%27 y1=%2716%27 x2=%2728%27 y2=%2716%27 stroke=%27%23C8A96E%27 stroke-width=%271.5%27/></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230A0A0A'/><circle cx='16' cy='16' r='5' fill='none' stroke='%23C8A96E' stroke-width='2'/><line x1='16' y1='4' x2='16' y2='11' stroke='%23C8A96E' stroke-width='1.5'/><line x1='16' y1='21' x2='16' y2='28' stroke='%23C8A96E' stroke-width='1.5'/><line x1='4' y1='16' x2='11' y2='16' stroke='%23C8A96E' stroke-width='1.5'/><line x1='21' y1='16' x2='28' y2='16' stroke='%23C8A96E' stroke-width='1.5'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <style>
@@ -77,6 +75,8 @@ nav.scrolled {
   opacity: 0; transition: opacity 0.4s;
 }
 nav.scrolled .nav-logo { opacity: 1; }
+
+/* Desktop links */
 .nav-links { display: flex; gap: 40px; list-style: none; }
 .nav-links a {
   font-size: 13px; font-weight: 400; color: var(--text-2);
@@ -93,10 +93,48 @@ nav.scrolled .nav-logo { opacity: 1; }
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover::after { transform: scaleX(1); }
 
+/* Hamburger — mobile only */
+.nav-burger {
+  display: none;
+  flex-direction: column; justify-content: center;
+  gap: 5px; width: 28px; height: 28px;
+  cursor: pointer; background: none; border: none; padding: 0;
+}
+.nav-burger span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--text-2);
+  transition: transform 0.3s var(--out), opacity 0.2s, background 0.2s;
+  transform-origin: center;
+}
+.nav-burger:hover span { background: var(--text); }
+.nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.nav-drawer {
+  position: fixed; top: 60px; left: 0; right: 0; z-index: 99;
+  background: rgba(10,10,10,0.97);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 48px;
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s var(--out), padding 0.3s;
+}
+.nav-drawer.open {
+  max-height: 400px;
+  padding: 24px 48px 32px;
+}
+.nav-drawer ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.nav-drawer a {
+  display: block; padding: 12px 0;
+  font-size: 18px; font-weight: 300; color: var(--text-2);
+  border-bottom: 1px solid var(--line);
+  transition: color 0.2s, padding-left 0.2s;
+}
+.nav-drawer a:hover { color: var(--text); padding-left: 6px; }
+
 /* ═══════════════════════════════════════════════════════
    HERO
-   - min-height 110vh so animation has room below the fold
-   - text sits at bottom third, not cramped at very bottom
 ═══════════════════════════════════════════════════════ */
 #hero {
   position: relative;
@@ -112,7 +150,6 @@ nav.scrolled .nav-logo { opacity: 1; }
   pointer-events: none;
 }
 
-/* Vignette: edges + bottom darken, animation visible in upper 60% */
 .hero-vignette {
   position: absolute; inset: 0; pointer-events: none;
   background:
@@ -131,7 +168,6 @@ nav.scrolled .nav-logo { opacity: 1; }
   max-width: 1040px; margin: 0 auto; width: 100%;
 }
 
-/* Availability tag */
 .hero-tag {
   display: inline-flex; align-items: center; gap: 8px;
   margin-bottom: 44px;
@@ -145,9 +181,6 @@ nav.scrolled .nav-logo { opacity: 1; }
   box-shadow: 0 0 8px rgba(74,154,90,0.5);
 }
 
-/* ── HEADLINE ──
-   font-weight: 300 throughout — size does the work, not weight
-   No 200, no 600. Clean. */
 .hero-hl { margin-bottom: 40px; }
 .hl-mask {
   display: block; overflow: hidden;
@@ -175,7 +208,6 @@ nav.scrolled .nav-logo { opacity: 1; }
 @keyframes af { to { opacity: 1; } }
 @keyframes au { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:none } }
 
-/* Bottom row: sub text left, meta right */
 .hero-lower {
   display: flex; align-items: flex-end;
   justify-content: space-between; gap: 48px;
@@ -198,7 +230,6 @@ nav.scrolled .nav-logo { opacity: 1; }
 .meta-val { font-size: 13px; color: var(--text-2); }
 .meta-val.open { color: #5aad6a; }
 
-/* Scroll hint */
 .scroll-hint {
   position: absolute; bottom: 48px; left: 50%;
   transform: translateX(-50%);
@@ -221,7 +252,7 @@ nav.scrolled .nav-logo { opacity: 1; }
 }
 
 /* ═══════════════════════════════════════════════════════
-   SECTIONS  — generous spacing, clear rhythm
+   SECTIONS
 ═══════════════════════════════════════════════════════ */
 .section { padding: 120px 0; border-bottom: 1px solid var(--line); }
 
@@ -242,7 +273,6 @@ nav.scrolled .nav-logo { opacity: 1; }
   gap: 88px; align-items: start;
 }
 
-/* Big opening line — sets the tone before paragraphs */
 .about-lede {
   font-size: 22px; font-weight: 300;
   color: var(--text); line-height: 1.5;
@@ -259,7 +289,6 @@ nav.scrolled .nav-logo { opacity: 1; }
 .about-text p:last-child { margin-bottom: 0; }
 .about-text strong { color: var(--text); font-weight: 500; }
 
-/* Aside */
 .aside-group { margin-bottom: 40px; }
 .aside-group:last-child { margin-bottom: 0; }
 .aside-group-label {
@@ -278,10 +307,10 @@ nav.scrolled .nav-logo { opacity: 1; }
 .aside-links li a {
   display: flex; align-items: center; justify-content: space-between;
   padding: 13px 0; border-bottom: 1px solid var(--line);
-  font-size: 14px; color: var(--text-2); transition: color 0.2s;
+  font-size: 14px; color: var(--text-2); transition: color 0.2s, padding-left 0.2s;
 }
 .aside-links li:first-child a { border-top: 1px solid var(--line); }
-.aside-links li a:hover { color: var(--text); }
+.aside-links li a:hover { color: var(--text); padding-left: 4px; }
 .aside-links li a:hover .arr { color: var(--gold); transform: translateX(4px); }
 .arr {
   display: inline-flex; align-items: center; justify-content: center;
@@ -322,7 +351,6 @@ nav.scrolled .nav-logo { opacity: 1; }
 }
 .proj-type { font-size: 12px; color: var(--gold); letter-spacing: 0.03em; }
 
-/* Inline summary — first sentence larger, rest normal */
 .proj-summary {
   font-size: 17px; font-weight: 300;
   color: var(--text); line-height: 1.6;
@@ -344,6 +372,19 @@ nav.scrolled .nav-logo { opacity: 1; }
   background: var(--gold-soft); font-weight: 500;
 }
 .proj-note { font-size: 12px; color: var(--text-4); font-style: italic; }
+
+.proj-github {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--gold);
+  margin-top: 6px;
+  transition: gap 0.2s;
+}
+.proj-github:hover { gap: 12px; }
+.proj-github svg {
+  width: 15px; height: 15px;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
 
 /* ─── SKILLS ─────────────────────────────────────────── */
 .skills-grid {
@@ -429,18 +470,23 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
 /* ─── RESPONSIVE ─────────────────────────────────────── */
 @media (max-width: 860px) {
   .wrap { padding: 0 24px; }
-  .nav-inner, .hero-body, .footer-inner { padding-left: 24px; padding-right: 24px; }
+  .nav-inner { padding: 0 24px; }
   .nav-links { display: none; }
-  .hero-lower { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .nav-burger { display: flex; }
+  .nav-drawer { padding-left: 24px; padding-right: 24px; }
+  .nav-drawer.open { padding: 20px 24px 28px; }
+  .hero-body { padding: 0 24px 72px; }
+  .hero-lower { flex-direction: column; align-items: flex-start; gap: 24px; }
   .hero-meta { align-items: flex-start; }
   .section { padding: 80px 0; }
-  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+  .about-grid { grid-template-columns: 1fr; gap: 52px; }
   .project-row, .edu-row { grid-template-columns: 1fr; gap: 14px; }
   .project-row:hover { margin: 0; padding-left: 0; padding-right: 0; }
   .skills-grid { grid-template-columns: 1fr; }
   .skill-col { border-right: none; border-bottom: 1px solid var(--line); }
   .skill-col:last-child { border-bottom: none; }
-  .footer-inner { flex-direction: column; gap: 6px; text-align: center; }
+  .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+  .footer-inner { flex-direction: column; gap: 6px; text-align: center; padding: 0 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hl-text, .hero-tag, .hero-lower, .scroll-hint
@@ -456,7 +502,7 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
 <!-- ─── NAV ─── -->
 <nav id="nav">
   <div class="nav-inner">
-    <span class="nav-logo">Your Name</span>
+    <span class="nav-logo">Gamunu Agalawatte</span>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -464,8 +510,21 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="nav-burger" id="burger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div class="nav-drawer" id="drawer">
+  <ul>
+    <li><a href="#about"     class="drawer-link">About</a></li>
+    <li><a href="#projects"  class="drawer-link">Projects</a></li>
+    <li><a href="#skills"    class="drawer-link">Skills</a></li>
+    <li><a href="#education" class="drawer-link">Education</a></li>
+    <li><a href="#contact"   class="drawer-link">Contact</a></li>
+  </ul>
+</div>
 
 <!-- ─── HERO ─── -->
 <section id="hero">
@@ -479,9 +538,9 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
     </div>
 
     <div class="hero-hl">
-      <span class="hl-mask"><span class="hl-text">Hardware</span></span>
+      <span class="hl-mask"><span class="hl-text">Embedded systems</span></span>
       <span class="hl-mask"><span class="hl-text">engineer &amp;</span></span>
-      <span class="hl-mask"><span class="hl-text"><em>builder.</em></span></span>
+      <span class="hl-mask"><span class="hl-text"><em>PCB designer.</em></span></span>
     </div>
 
     <div class="hero-lower">
@@ -536,10 +595,11 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
           Every design decision on the board had a consequence in the code, and I owned both.
         </p>
         <p>
-          Outside the FYP I have laid out complete PCBs in EasyEDA and shaped
-          the hardware architecture of a <strong>first-place Micromouse</strong>.
-          Firmware in C is where I am investing time now — the hardware side is
-          solid; making the chips do exactly what I intend is the next chapter.
+          Outside the FYP I have laid out complete PCBs in EasyEDA and led the mechanical
+          structure and drivetrain design for a <strong>first-place Micromouse</strong> —
+          engineering the gear system that reached 0.924 m/s. Firmware in C is where I am
+          investing time now — the hardware side is solid; making the chips do exactly
+          what I intend is the next chapter.
         </p>
       </div>
       <div class="about-aside sr">
@@ -556,7 +616,7 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
           <div class="aside-group-label">Tools &amp; Platforms</div>
           <ul class="aside-list">
             <li>EasyEDA · KiCad</li>
-            <li>RP2040 · ESP8266 · Arduino</li>
+            <li>RP2040 · ESP8266 · ESP32</li>
             <li>Python · PySide6 / Qt</li>
             <li>MicroPython · MATLAB · LTSpice</li>
           </ul>
@@ -564,9 +624,9 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
         <div class="aside-group">
           <div class="aside-group-label">Links</div>
           <ul class="aside-links">
-            <li><a href="#">LinkedIn <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span></a></li>
-            <li><a href="#">GitHub <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span></a></li>
-            <li><a href="#">Download CV <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span></a></li>
+            <li><a href="https://www.linkedin.com/in/gamunu-agalawatte" target="_blank" rel="noopener">LinkedIn <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span></a></li>
+            <li><a href="https://github.com/gamunuagalawatte" target="_blank" rel="noopener">GitHub <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span></a></li>
+            <li><a href="mailto:gamunuagalawatte@gmail.com">Email <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span></a></li>
           </ul>
         </div>
       </div>
@@ -607,6 +667,10 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
           <span class="proj-tag">Layered architecture</span>
         </div>
         <p class="proj-note">Source code confidential — available for review on request</p>
+        <a class="proj-github" href="https://github.com/gamunuagalawatte/jumperz-studio" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+          View on GitHub
+        </a>
       </div>
     </div>
 
@@ -622,27 +686,30 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
           for an autonomous line-following robot.
         </p>
         <p class="proj-body">
-          Integrates RP2040, ESP8266 Wi-Fi, ICM-20652 IMU, dual motor drivers,
-          USB Type-C power input, QSPI flash, and an IR sensor array on a single
-          compact board. Three-page schematic covering power regulation,
-          reset/boot circuitry, and ESD protection — designed and laid out
-          entirely in EasyEDA.
+          Integrates RP2040, ESP8266 Wi-Fi, ICM-20602 IMU, dual motor drivers,
+          USB Type-C power input with automatic battery switching, and a 9× TCRT5000
+          IR sensor array on a single compact 4-layer board. Fuzzy-logic line-tracking
+          firmware — designed and laid out entirely in EasyEDA.
         </p>
         <div class="proj-tags">
           <span class="proj-tag hl">EasyEDA</span>
-          <span class="proj-tag">RP2040 · ESP8266</span>
-          <span class="proj-tag">ICM-20652 IMU</span>
-          <span class="proj-tag">USB Type-C · QSPI</span>
-          <span class="proj-tag">3-page schematic</span>
-          <span class="proj-tag">ESD protection</span>
+          <span class="proj-tag">RP2040 · ESP8266EX</span>
+          <span class="proj-tag">ICM-20602 IMU</span>
+          <span class="proj-tag">USB Type-C</span>
+          <span class="proj-tag">4-layer PCB</span>
+          <span class="proj-tag">Fuzzy logic</span>
         </div>
+        <a class="proj-github" href="https://github.com/gamunuagalawatte/RP2040-line-following-robot" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+          View on GitHub
+        </a>
       </div>
     </div>
 
     <div class="project-row sr">
       <div>
         <div class="proj-context">Competition — 1st Place</div>
-        <div class="proj-name">Micromouse</div>
+        <div class="proj-name">Micromouse (V1 &amp; V2)</div>
         <div class="proj-type">Robotics · Hardware Architecture</div>
       </div>
       <div>
@@ -651,19 +718,23 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
           designed around the constraints of the algorithm, not just the maze.
         </p>
         <p class="proj-body">
-          Responsible for full system design: component selection, sensor layout,
-          motor configuration, and hardware planning within strict size and weight
-          limits. The design had to accommodate flood-fill algorithm requirements
-          in sensor placement and motor response time — the hardware had to let
-          the software win.
+          V1: led the full mechanical structure and sensor placement for a dual-MCU
+          competition robot, with a 2-layer mainboard. V2: designed the complete
+          drivetrain — 800 RPM motors at a 3:2 gear ratio, reaching a top speed of
+          0.924 m/s — and refined sensor geometry for accurate turn detection.
+          Champion, MicroMaze 2025 (IIT); 1st Runner-Up, Robofest 2025 (SLIIT).
         </p>
         <div class="proj-tags">
-          <span class="proj-tag hl">1st Place</span>
-          <span class="proj-tag">System architecture</span>
-          <span class="proj-tag">Sensor design</span>
-          <span class="proj-tag">Motor systems</span>
-          <span class="proj-tag">Constraint-driven design</span>
+          <span class="proj-tag hl">Champion — MicroMaze 2025</span>
+          <span class="proj-tag">Drivetrain design</span>
+          <span class="proj-tag">Sensor geometry</span>
+          <span class="proj-tag">Dual-MCU</span>
+          <span class="proj-tag">PlatformIO · EasyEDA · Fusion 360</span>
         </div>
+        <a class="proj-github" href="https://github.com/gamunuagalawatte/Micromouse" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+          View on GitHub
+        </a>
       </div>
     </div>
   </div>
@@ -700,7 +771,7 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
         <ul class="skill-items">
           <li class="skill-item">
             <strong>Platforms</strong>
-            <span>RP2040, ESP8266, Arduino Nano</span>
+            <span>RP2040, ESP32, ESP8266, SIM800L</span>
           </li>
           <li class="skill-item">
             <strong>Interfaces</strong>
@@ -708,7 +779,7 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
           </li>
           <li class="skill-item">
             <strong>Languages</strong>
-            <span>MicroPython (active), C / Arduino (developing), JSON protocol design</span>
+            <span>C / C++ (Arduino, PlatformIO), MicroPython, JSON protocol design</span>
           </li>
           <li class="skill-item">
             <strong>Peripherals</strong>
@@ -747,10 +818,10 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
     <div class="section-label">Education</div>
     <div class="sr">
       <div class="edu-row">
-        <div class="edu-period">2020 – 2024</div>
+        <div class="edu-period">2022 – 2026</div>
         <div>
-          <div class="edu-degree">BSc in Electrical &amp; Electronic Engineering</div>
-          <div class="edu-institution">Your University · Sri Lanka</div>
+          <div class="edu-degree">BSc (Hons) Electrical &amp; Electronic Engineering</div>
+          <div class="edu-institution">Sri Lanka Institute of Information Technology (SLIIT) · Second Upper Class (expected)</div>
           <div class="edu-detail">
             Final Year Project: JumperZ Studio — commercial-grade EDA desktop application
             with custom hardware. Coursework: embedded systems, digital electronics,
@@ -759,13 +830,17 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
         </div>
       </div>
       <div class="edu-row">
-        <div class="edu-period">Certifications</div>
+        <div class="edu-period">GCE A/L</div>
         <div>
-          <div class="edu-degree">Add certifications here</div>
-          <div class="edu-institution">e.g. MATLAB Onramp · Embedded Systems — Coursera</div>
-          <div class="edu-detail">
-            List short courses or workshops relevant to embedded systems or PCB design.
-          </div>
+          <div class="edu-degree">Trinity College, Kandy</div>
+          <div class="edu-institution">Combined Mathematics, Physics, Chemistry — B, B, C</div>
+        </div>
+      </div>
+      <div class="edu-row">
+        <div class="edu-period">GCE O/L</div>
+        <div>
+          <div class="edu-degree">Trinity College, Kandy</div>
+          <div class="edu-institution">9 Distinctions</div>
         </div>
       </div>
     </div>
@@ -785,24 +860,24 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
         </p>
       </div>
       <ul class="contact-list sr">
-        <li><a href="mailto:your@email.com">
+        <li><a href="mailto:gamunuagalawatte@gmail.com">
           <span class="c-label">Email</span>
-          <span class="c-value">your@email.com</span>
+          <span class="c-value">gamunuagalawatte@gmail.com</span>
           <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
         </a></li>
-        <li><a href="#">
+        <li><a href="tel:+94710599507">
+          <span class="c-label">Phone</span>
+          <span class="c-value">+94 71 059 9507</span>
+          <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+        </a></li>
+        <li><a href="https://www.linkedin.com/in/gamunu-agalawatte" target="_blank" rel="noopener">
           <span class="c-label">LinkedIn</span>
-          <span class="c-value">linkedin.com/in/yourname</span>
+          <span class="c-value">linkedin.com/in/gamunu-agalawatte</span>
           <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
         </a></li>
-        <li><a href="#">
+        <li><a href="https://github.com/gamunuagalawatte" target="_blank" rel="noopener">
           <span class="c-label">GitHub</span>
-          <span class="c-value">github.com/yourname</span>
-          <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
-        </a></li>
-        <li><a href="#">
-          <span class="c-label">CV</span>
-          <span class="c-value">Download PDF</span>
+          <span class="c-value">github.com/gamunuagalawatte</span>
           <span class="arr"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
         </a></li>
       </ul>
@@ -813,19 +888,40 @@ footer { padding: 32px 0; border-top: 1px solid var(--line); }
 <!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-text">© 2026 Your Name</span>
+    <span class="footer-text">© 2026 Gamunu Agalawatte</span>
     <span class="footer-text">BSc EEE — Open to work</span>
   </div>
 </footer>
 
 <script>
 // ── NAV ──
-const nav = document.getElementById('nav');
+const nav    = document.getElementById('nav');
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
+burger.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+});
 
+document.querySelectorAll('.drawer-link').forEach(a => {
+  a.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    burger.classList.remove('open');
+  });
+});
+
+document.addEventListener('click', e => {
+  if (!nav.contains(e.target) && !drawer.contains(e.target)) {
+    drawer.classList.remove('open');
+    burger.classList.remove('open');
+  }
+});
 
 // ── CIRCUIT ANIMATION ──────────────────────────────────
 (function () {
@@ -833,19 +929,15 @@ window.addEventListener('scroll', () => {
   const ctx    = canvas.getContext('2d');
   let W, H, nodes, edges, packets, raf, frame = 0;
 
-  // Colours — single gold palette, three stops
   const DIM    = [180, 148,  90];
   const MID    = [200, 169, 110];
   const BRIGHT = [228, 200, 148];
   const WHITE  = [245, 235, 215];
   const c = ([r,g,b], a) => `rgba(${r},${g},${b},${+a.toFixed(3)})`;
 
-  // ── Build ──────────────────────────────────────────────
   function build() {
     nodes = []; edges = []; packets = [];
 
-    // Fixed node count regardless of canvas size — keeps it readable at any zoom.
-    // Nodes placed in a loose organic grid with human jitter.
     const COUNT = 38;
     const cols  = 7;
     const rows  = Math.ceil(COUNT / cols);
@@ -853,28 +945,23 @@ window.addEventListener('scroll', () => {
     for (let i = 0; i < COUNT; i++) {
       const col = i % cols;
       const row = Math.floor(i / cols);
-      // Normalised position with tasteful jitter
       const nx = (col + 0.5) / cols + (Math.random() - 0.5) * 0.10;
       const ny = (row + 0.5) / rows + (Math.random() - 0.5) * 0.12;
-      // ~15% are junction nodes (larger, more connections)
       const major = Math.random() < 0.15;
       nodes.push({
-        nx, ny,                          // normalised 0-1
-        major,
-        r:    major ? 3.5 : 2.0,        // base radius px
+        nx, ny, major,
+        r:    major ? 3.5 : 2.0,
         ph:   Math.random() * Math.PI * 2,
         phS:  major ? 0.013 : 0.008,
-        bT:   0,                         // burst timer
+        bT:   0,
         eIdx: [],
       });
     }
 
-    // Connect nearby nodes — sparse, max 3 per node
     const used = new Set();
     nodes.forEach((n, i) => {
       const max = n.major ? 4 : 3;
       let cnt   = 0;
-      // Sort all others by distance, pick closest
       [...nodes]
         .map((m, j) => ({
           j,
@@ -896,16 +983,13 @@ window.addEventListener('scroll', () => {
         });
     });
 
-    // Seed packets on ~30% of edges
     edges.forEach((e, i) => {
       if (Math.random() < 0.3) spawn(i, Math.random());
     });
   }
 
-  // px coords from normalised
   const px = n => ({ x: n.nx * W, y: n.ny * H });
 
-  // ── Spawn packet on edge ei at position t0, direction dir (1 or -1)
   function spawn(ei, t0 = 0, dir = 1) {
     packets.push({
       ei, t: t0, dir,
@@ -915,26 +999,22 @@ window.addEventListener('scroll', () => {
     });
   }
 
-  // ── Burst: major node fires packets on all its edges
   function burst(ni) {
     const n = nodes[ni];
     if (n.bT > 0) return;
     n.bT = 1.0;
     n.eIdx.forEach(ei => {
       edges[ei].lit = 1.0;
-      // Direction away from this node
       const dir = edges[ei].a === ni ? 1 : -1;
       spawn(ei, dir === 1 ? 0 : 1, dir);
     });
   }
 
-  // ── Render ──────────────────────────────────────────────
   function loop() {
     raf = requestAnimationFrame(loop);
     frame++;
     ctx.clearRect(0, 0, W, H);
 
-    // ── Edges
     edges.forEach(e => {
       if (e.lit > 0) e.lit = Math.max(0, e.lit - 0.016);
       const na = nodes[e.a], nb = nodes[e.b];
@@ -950,7 +1030,6 @@ window.addEventListener('scroll', () => {
       ctx.stroke();
     });
 
-    // ── Nodes
     nodes.forEach((n, ni) => {
       n.ph += n.phS;
       if (n.bT > 0) n.bT = Math.max(0, n.bT - 0.020);
@@ -961,7 +1040,6 @@ window.addEventListener('scroll', () => {
       const r     = n.r * pulse + extra;
 
       if (n.major) {
-        // Atmospheric bloom — soft, wide
         const bloomR = r + 16 + n.bT * 12;
         const bg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, bloomR);
         bg.addColorStop(0,   c(MID,  0.12 + n.bT * 0.18));
@@ -970,25 +1048,21 @@ window.addEventListener('scroll', () => {
         ctx.beginPath(); ctx.arc(p.x, p.y, bloomR, 0, Math.PI * 2);
         ctx.fillStyle = bg; ctx.fill();
 
-        // Tight inner glow ring
         const ig = ctx.createRadialGradient(p.x, p.y, r * 0.6, p.x, p.y, r + 5);
         ig.addColorStop(0, c(BRIGHT, 0.20 + n.bT * 0.25));
         ig.addColorStop(1, c(MID,    0));
         ctx.beginPath(); ctx.arc(p.x, p.y, r + 5, 0, Math.PI * 2);
         ctx.fillStyle = ig; ctx.fill();
 
-        // Core
         ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
         ctx.fillStyle = c(n.bT > 0.1 ? BRIGHT : MID, 0.55 + n.bT * 0.30);
         ctx.fill();
 
-        // White pinpoint
         ctx.beginPath(); ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
         ctx.fillStyle = c(WHITE, 0.85 + n.bT * 0.15);
         ctx.fill();
 
       } else {
-        // Small node — just a dot with subtle halo
         const sg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r + 4);
         sg.addColorStop(0, c(MID, 0.18 + n.bT * 0.20));
         sg.addColorStop(1, c(MID, 0));
@@ -1001,13 +1075,11 @@ window.addEventListener('scroll', () => {
       }
     });
 
-    // ── Packets
     packets = packets.filter(p => p.alive);
 
     packets.forEach(p => {
       p.t += p.spd * p.dir;
 
-      // Clean despawn — no bounce
       if (p.t >= 1 || p.t <= 0) {
         p.alive = false;
         const e    = edges[p.ei];
@@ -1023,7 +1095,6 @@ window.addEventListener('scroll', () => {
       const x  = pa.x + (pb.x - pa.x) * p.t;
       const y  = pa.y + (pb.y - pa.y) * p.t;
 
-      // Trail
       p.trail.push({ x, y });
       if (p.trail.length > 16) p.trail.shift();
 
@@ -1040,7 +1111,6 @@ window.addEventListener('scroll', () => {
         }
       }
 
-      // Halo
       const hg = ctx.createRadialGradient(x, y, 0, x, y, 10);
       hg.addColorStop(0,   c(BRIGHT, 0.32));
       hg.addColorStop(0.4, c(MID,    0.10));
@@ -1048,7 +1118,6 @@ window.addEventListener('scroll', () => {
       ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI * 2);
       ctx.fillStyle = hg; ctx.fill();
 
-      // Core
       ctx.beginPath(); ctx.arc(x, y, 1.8, 0, Math.PI * 2);
       ctx.fillStyle = c(WHITE, 0.95);
       ctx.fill();
@@ -1056,13 +1125,11 @@ window.addEventListener('scroll', () => {
       e.lit = Math.max(e.lit, 0.06);
     });
 
-    // ── Spawn new packets steadily
     if (frame % 65 === 0 && packets.length < 22) {
       const ei = Math.floor(Math.random() * edges.length);
       spawn(ei, 0, 1);
     }
 
-    // ── Periodic burst on a random major node
     if (frame % 280 === 0) {
       const majors = nodes.map((n, i) => n.major ? i : -1).filter(i => i >= 0);
       if (majors.length) burst(majors[Math.floor(Math.random() * majors.length)]);
