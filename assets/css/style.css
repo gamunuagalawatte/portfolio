@@ -440,6 +440,19 @@ h1, h2, h3 { font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; }
 }
 .proj-status-pill svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; }
 
+/* repo link + status pill, side by side */
+.proj-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-top: var(--space-lg); }
+.proj-actions .proj-status-pill { margin-top: 0; }
+.proj-repo-link {
+  display: inline-flex; align-items: center; gap: var(--space-2xs);
+  font-size: var(--text-xs); font-weight: 600; color: var(--cyan);
+  padding: 0.5rem 0.9rem; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: rgba(77,216,255,0.06);
+  transition: background .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+}
+.proj-repo-link:hover { background: rgba(77,216,255,0.14); border-color: var(--cyan); transform: translateY(-1px); }
+.proj-repo-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
 /* ─── SKILLS ─────────────────────────────────────────── */
 .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
 .skill-tile { padding: var(--space-lg); transition: transform .3s var(--ease), border-color .3s var(--ease); }

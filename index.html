@@ -165,9 +165,10 @@
             application I designed and built from scratch in Python.
           </p>
           <p>
-            Outside the FYP I've laid out complete boards in EasyEDA and led
-            the mechanical and sensor design across two competition
-            Micromouse robots, built with a 5-person team over two years.
+            Outside the FYP I've laid out complete 4-layer boards in EasyEDA
+            and worked on the mechanical and PCB design of two competition
+            Micromouse robots with a 5-person team, leading the mechanical
+            redesign of the version that won MicroMaze 2025.
             Firmware is where I'm investing time now. The hardware side is
             solid, and getting the chips to do exactly what I intend is the next
             chapter.
@@ -335,12 +336,12 @@
             physically routes current through real hardware, instantly.
           </p>
           <dl class="spec-list">
-            <div><dt>Hardware</dt><dd>Custom RP2040/ESP32 mainboard · 12× CH446Q analog switch matrix · 400 WS2812B LEDs · 6&#8209;layer PCB</dd></div>
-            <div><dt>Sensing</dt><dd>Dual INA219 for live current and voltage readings</dd></div>
-            <div><dt>Software</dt><dd>Sole developer · ~150&#8209;module PySide6 app · six&#8209;layer domain&#8209;driven architecture</dd></div>
+            <div><dt>My role</dt><dd>Sole developer of the desktop application · led the physical system design</dd></div>
+            <div><dt>Software</dt><dd>~150&#8209;module PySide6 app · six&#8209;layer domain&#8209;driven architecture · Design, Code, Analyze and Inspect workspaces</dd></div>
             <div><dt>Comms</dt><dd>Custom JSON protocol over 4 USB CDC ports · pub&#8209;sub event bus · 6 background threads</dd></div>
             <div><dt>Algorithms</dt><dd>Union&#8209;Find netlist builder · Manhattan&#8209;style connection routing</dd></div>
-            <div><dt>Physical</dt><dd>Dual&#8209;board outlines in AutoCAD · magnetic pogo&#8209;pin connector · 3D&#8209;printed enclosure</dd></div>
+            <div><dt>Physical</dt><dd>Dual&#8209;board outlines in AutoCAD · magnetic pogo&#8209;pin connector · breadboard spring&#8209;clip mechanism · 3D&#8209;printed enclosures</dd></div>
+            <div><dt>Hardware</dt><dd>Team&#8209;built: RP2040/ESP32 6&#8209;layer mainboard · 12× CH446Q switch matrix · 400 WS2812B LEDs · dual INA219 sensing · add&#8209;on oscilloscope and function&#8209;generator board</dd></div>
           </dl>
           <div class="metric-row">
             <div class="metric"><span class="metric-num">400</span><span class="metric-label">Addressable LEDs</span></div>
@@ -364,9 +365,15 @@
                    src="assets/images/projects/jumperz-studio/pitch.mp4">
             </video>
           </div>
-          <div class="proj-status-pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-            Full write-up with photos &amp; demo video coming soon
+          <div class="proj-actions">
+            <a class="proj-repo-link" href="https://github.com/gamunuagalawatte/jumperz-studio" target="_blank" rel="noopener" aria-label="View JumperZ Studio on GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+              View on GitHub
+            </a>
+            <div class="proj-status-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              Full case study coming soon
+            </div>
           </div>
         </div>
       </article>
@@ -386,20 +393,22 @@
         </div>
         <div class="project-body">
           <div class="project-head">
-            <span class="eyebrow-tag">PCB Design</span>
+            <span class="eyebrow-tag">PCB Design · 2-Person Team</span>
             <h3 class="project-name">Line Following Robot</h3>
-            <p class="project-type">PCB · Embedded Hardware</p>
+            <p class="project-type">PCB · Power · Embedded Hardware</p>
           </div>
           <p class="project-summary">
-            A complete custom PCB, from blank schematic to routed board, for an
-            autonomous line&#8209;following robot.
+            A complete custom PCB, from blank schematic to routed board, that
+            carries the chassis, sensor array, power system, and MCU of an
+            autonomous line&#8209;following robot as one board.
           </p>
           <dl class="spec-list">
-            <div><dt>Board</dt><dd>4&#8209;layer stack&#8209;up (VCC and GND planes, 2 signal layers) · bare&#8209;IC design in EasyEDA</dd></div>
+            <div><dt>My role</dt><dd>PCB design (schematic, layout, routing) · power architecture · mechanical and 3D parts</dd></div>
+            <div><dt>Board</dt><dd>88.0 × 89.9 mm · 4&#8209;layer stack&#8209;up (VCC and GND planes, 2 signal layers) · bare&#8209;IC design in EasyEDA</dd></div>
             <div><dt>MCU &amp; RF</dt><dd>RP2040 · ESP8266EX Wi&#8209;Fi with antenna</dd></div>
-            <div><dt>Sensing</dt><dd>9× TCRT5000 IR array · ICM&#8209;20602 IMU</dd></div>
+            <div><dt>Sensing</dt><dd>9× TCRT5000 IR array with conditioning circuitry · ICM&#8209;20602 IMU</dd></div>
             <div><dt>Power</dt><dd>USB Type&#8209;C · dedicated regulation · CJ2301 P&#8209;MOSFET auto battery/USB&#8209;C switching</dd></div>
-            <div><dt>Control</dt><dd>Dual motor drivers · fuzzy&#8209;logic line&#8209;tracking firmware</dd></div>
+            <div><dt>Motion</dt><dd>Drivers for two DC motors · fuzzy&#8209;logic line tracking (firmware by teammate)</dd></div>
           </dl>
           <div class="metric-row">
             <div class="metric"><span class="metric-num">4-layer</span><span class="metric-label">Bare-IC PCB</span></div>
@@ -412,11 +421,17 @@
             <span class="chip">RP2040 · ESP8266EX</span>
             <span class="chip">ICM-20602 IMU</span>
             <span class="chip">CJ2301 P-MOSFET switching</span>
-            <span class="chip">Fuzzy-logic control</span>
+            <span class="chip">Power architecture</span>
           </div>
-          <div class="proj-status-pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-            Full write-up with photos &amp; demo video coming soon
+          <div class="proj-actions">
+            <a class="proj-repo-link" href="https://github.com/gamunuagalawatte/RP2040-line-following-robot" target="_blank" rel="noopener" aria-label="View Line Following Robot on GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+              View on GitHub
+            </a>
+            <div class="proj-status-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              Full case study coming soon
+            </div>
           </div>
         </div>
       </article>
@@ -438,33 +453,42 @@
           <div class="project-head">
             <span class="eyebrow-tag">Team Project · 5 Members</span>
             <h3 class="project-name">Micromouse Version 1</h3>
-            <p class="project-type">Robotics · Mechanical &amp; Sensor Design Lead</p>
+            <p class="project-type">Robotics · PCB &amp; Mechanical Design</p>
           </div>
           <p class="project-summary">
             First iteration of a competition maze&#8209;solving robot, built
             around a master/slave dual&#8209;MCU architecture.
           </p>
           <dl class="spec-list">
-            <div><dt>My role</dt><dd>Led mechanical structure and sensor placement</dd></div>
+            <div><dt>My role</dt><dd>Co&#8209;designed the PCBs · mechanical structure, sensor placement and assembly</dd></div>
             <div><dt>Control</dt><dd>Master/slave dual&#8209;MCU on ATmega328P controllers</dd></div>
-            <div><dt>Boards</dt><dd>Custom two&#8209;board PCB set, each a 4&#8209;layer design</dd></div>
+            <div><dt>Boards</dt><dd>Two separate 4&#8209;layer PCBs stacked on standoffs</dd></div>
+            <div><dt>Sensing</dt><dd>Sharp analog IR distance sensors · Bluetooth module</dd></div>
+            <div><dt>Drivetrain</dt><dd>2&#8209;wheel base</dd></div>
             <div><dt>Result</dt><dd>Semi&#8209;finalist · 8th place in the Robofest final round</dd></div>
           </dl>
           <div class="metric-row">
             <div class="metric"><span class="metric-num">8th</span><span class="metric-label">Robofest Final Round</span></div>
-            <div class="metric"><span class="metric-num">2 × 4L</span><span class="metric-label">Custom PCBs</span></div>
+            <div class="metric"><span class="metric-num">2 × 4L</span><span class="metric-label">Stacked PCBs</span></div>
             <div class="metric"><span class="metric-num">5</span><span class="metric-label">Team Members</span></div>
           </div>
           <div class="chip-row">
             <span class="chip chip--accent">Robofest Finalist · 8th Place</span>
             <span class="chip">ATmega328P ×2</span>
             <span class="chip">Master/slave dual-MCU</span>
-            <span class="chip">2× 4-Layer PCB</span>
-            <span class="chip">Mechanical &amp; sensor layout</span>
+            <span class="chip">2× 4-Layer PCB (stacked)</span>
+            <span class="chip">Sharp IR sensing</span>
+            <span class="chip">Mechanical design &amp; assembly</span>
           </div>
-          <div class="proj-status-pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-            Full write-up with photos &amp; demo video coming soon
+          <div class="proj-actions">
+            <a class="proj-repo-link" href="https://github.com/gamunuagalawatte/Micromouse" target="_blank" rel="noopener" aria-label="View Micromouse Version 1 on GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+              View on GitHub
+            </a>
+            <div class="proj-status-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              Full case study coming soon
+            </div>
           </div>
         </div>
       </article>
@@ -474,7 +498,7 @@
           <!-- Drop "overview.jpg" (or video, see JumperZ example above) into assets/images/projects/micromouse-v2/ -->
           <img class="project-media__img project-media__img--contain"
                src="assets/images/projects/micromouse-v2/overview.jpg"
-               alt="Micromouse V2: ESP32-S3 competition robot with sensor fusion"
+               alt="Micromouse V2 &quot;Decker&quot;: ESP32-S3 competition robot on a single 4-layer PCB"
                loading="lazy" decoding="async"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; this.parentElement.classList.add('is-empty');">
           <div class="project-media__empty" style="display:none">
@@ -486,17 +510,19 @@
           <div class="project-head">
             <span class="eyebrow-tag">Team Project · 5 Members</span>
             <h3 class="project-name">Micromouse Version 2</h3>
-            <p class="project-type">Robotics · Mechanical &amp; Sensor Design Lead</p>
+            <p class="project-type">Robotics · Mechanical Design Lead</p>
           </div>
           <p class="project-summary">
-            A rebuilt version of the competition robot around an ESP32&#8209;S3.
-            Champion at MicroMaze 2025 and 1st runner&#8209;up at Robofest 2025.
+            &ldquo;Decker&rdquo;, the rebuilt competition robot on a single
+            ESP32&#8209;S3 board. Champion at MicroMaze 2025 and 1st
+            runner&#8209;up at Robofest 2025.
           </p>
           <dl class="spec-list">
-            <div><dt>Control</dt><dd>Dual&#8209;core ESP32&#8209;S3 · Flood&#8209;Fill path planning · PID motor control, tuned in MATLAB</dd></div>
-            <div><dt>Sensing</dt><dd>IR, ToF, encoder and IMU fusion · sensor geometry tuned for turn detection</dd></div>
+            <div><dt>My role</dt><dd>Led the mechanical redesign: drivetrain conversion and sensor geometry</dd></div>
             <div><dt>Drivetrain</dt><dd>Compact 4&#8209;wheel geared · 1200 RPM motors · 3:2 ratio · 0.924 m/s top speed</dd></div>
-            <div><dt>Build</dt><dd>SolidWorks and AutoCAD mechanical design · custom 4&#8209;layer PCB</dd></div>
+            <div><dt>Sensing</dt><dd>IR, ToF, encoder and IMU · sensor geometry tuned for turn detection</dd></div>
+            <div><dt>Build</dt><dd>Single 4&#8209;layer PCB · mechanical design across Fusion 360, SolidWorks and AutoCAD</dd></div>
+            <div><dt>Control</dt><dd>Dual&#8209;core ESP32&#8209;S3 · Flood&#8209;Fill path planning · PID motor control (firmware by teammates)</dd></div>
             <div><dt>Results</dt><dd>Champion, MicroMaze 2025 (IIT) · 1st Runner&#8209;Up, Robofest 2025 (SLIIT) with a 30 s fast run</dd></div>
           </dl>
           <div class="metric-row">
@@ -507,16 +533,22 @@
           <div class="chip-row">
             <span class="chip chip--accent">Champion, MicroMaze 2025</span>
             <span class="chip chip--accent">1st Runner-Up, Robofest 2025</span>
-            <span class="chip">Flood Fill + PID</span>
+            <span class="chip">Drivetrain redesign</span>
+            <span class="chip">3:2 geared 4-wheel drive</span>
+            <span class="chip">IR · ToF · encoder · IMU</span>
             <span class="chip">Dual-core ESP32-S3</span>
-            <span class="chip">Sensor fusion (IR · ToF · encoder · IMU)</span>
-            <span class="chip">MATLAB PID tuning</span>
-            <span class="chip">3:2 geared drivetrain</span>
-            <span class="chip">Custom 4-layer PCB</span>
+            <span class="chip">Single 4-layer PCB</span>
+            <span class="chip">Fusion 360 · SolidWorks · AutoCAD</span>
           </div>
-          <div class="proj-status-pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-            Full write-up with photos &amp; demo video coming soon
+          <div class="proj-actions">
+            <a class="proj-repo-link" href="https://github.com/gamunuagalawatte/Micromouse" target="_blank" rel="noopener" aria-label="View Micromouse Version 2 on GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+              View on GitHub
+            </a>
+            <div class="proj-status-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              Full case study coming soon
+            </div>
           </div>
         </div>
       </article>
@@ -606,8 +638,8 @@
           <h3 class="skill-tile-name">Firmware</h3>
           <dl class="skill-facts">
             <div><dt>Languages</dt><dd>C / C++ (Arduino, PlatformIO)</dd></div>
-            <div><dt>Control</dt><dd>PID, fuzzy logic, Flood-Fill path planning</dd></div>
-            <div><dt>Validation</dt><dd>Firmware debugging, field-fault diagnosis</dd></div>
+            <div><dt>Routines</dt><dd>Sensor calibration, position tracking</dd></div>
+            <div><dt>Validation</dt><dd>Firmware debugging &amp; validation, field-fault diagnosis</dd></div>
           </dl>
         </div>
         <div class="skill-tile glass sr">
